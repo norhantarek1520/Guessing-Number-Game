@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Create a Guessing Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://img.freepik.com/free-photo/mystery-box-collage_23-2150061727.jpg?w=826&t=st=1726130264~exp=1726130864~hmac=2cb2ee7c0803a26a9811794512db50048bd8afdd37b433c412961747826cbc01');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      width: 400px;
+      border-radius: 15px;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-body {
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #32b1ec;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .converted-value {
+      font-weight: bold;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .answer {
+      padding: 10px 20px;
+      background-color: #d83dd0;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <h1>Create a Guessing Game</h1>
+        <% if (Answer === null) { %>
+          <form action="/" method="post">
+            <label for="Guessing_number">Your Guessing Number From 0 to 100 :</label>
+            <input type="number" id="Guessing_number" name="user_number" required  min="0" max="100">
+            <button type="submit">Submit</button>
+          </form>
+        <% } else if (Answer === "generatedNumber_high") { %>
+          <h2 class="converted-value">You are Almost there! The correct answer is <span style="color: rgb(169, 5, 184);">higher</span>.</h2>
+          <form action="/" method="post">
+            <label for="Guessing_number">Your Guessing Number From 0 to 100:</label>
+            <input type="number" id="Guessing_number" name="user_number" required  min="0" max="100">
+            <button type="submit">Submit</button>
+          </form>
+        <% } else if (Answer === "generatedNumber_low") { %>
+          <h2 class="converted-value">You are Almost there! The correct answer is <span style="color: rgb(169, 5, 184);">lower</span> .</h2>
+          <form action="/" method="post">
+            <label for="Guessing_number">Your Guessing Number From 0 to 100:</label>
+            <input type="number" id="Guessing_number" name="user_number" required  min="0" max="100">
+            <button type="submit">Submit</button>
+          </form>
+        <% } else if (Answer === "true") { %>
+          <h2 class="converted-value">You guessed it right! The answer is:</h2>
+          <p class="answer">The correct answer is : 
+            <%= generated_number %>
+          </p>
+          <p class="answer"> Number of wrong number  :   <%= attempts-1 %></p>
+          <p class="answer"> The number of attempts :   <%= attempts %></p>
+          
+          <button id="refreshButton">Go Back</button>
+
+        <% } %>
+
+
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('refreshButton').addEventListener('click', () => {
+      window.location.href = '/reset';
+    });
+  </script>
+</body>
+
+</html>
